@@ -1,7 +1,7 @@
 # Visualizing & Analyzing Data with R: Methods & Tools
 ## Hult University Student Repository
 
-**This repo does not replace the University system of record. Please submit work and review policy to [Canvas](https://mycourses.hult.edu/courses/3389826)**
+**This repo does not replace the University system of record. Please submit work and review policy at [Canvas](https://mycourses.hult.edu/courses/3389826)**
 
 **Course Topics:** 
 

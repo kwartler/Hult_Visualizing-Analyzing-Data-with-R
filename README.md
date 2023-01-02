@@ -16,7 +16,7 @@
 * CLO1: Understand programming and problem solving in R 
 * CLO2: Perform data cleaning, data visualization in R, and design a data science process
 
-## [BMBANDD1?](https://mycourses.hult.edu/courses/3389827/assignments/syllabus#calendar)
+### [BMBANDD1?](https://mycourses.hult.edu/courses/3389827/assignments/syllabus#calendar)
 
 | Date             | Lecture   | Lab  | Time|
 |------------------|-----------|------|------------------|
@@ -29,7 +29,7 @@
 | Tue Mar 14, 2023 | TBD       |      | 2pm to 4pm       |
 | Tue Mar 21, 2023 | TBD       |      | 1:30pm to 4:30pm |
 
-## [BMBANDD2?](https://mycourses.hult.edu/courses/3389826/assignments/syllabus#calendar)
+### [BMBANDD2?](https://mycourses.hult.edu/courses/3389826/assignments/syllabus#calendar)
 
 | Date             | Lecture   | Lab  | Time             |
 |------------------|-----------|------|------------------|
@@ -40,3 +40,10 @@
 | Mon Apr 3, 2023  | TBD       |      | 5pm to 8pm       |
 | Tue Apr 4, 2023  | TBD       |      | 5pm to 8pm       |
 | Thu Apr 6, 2023  | TBD       |      | 5pm to 7pm       |
+
+### R Packages to install
+```
+install.packages(pac_man)
+pacman::p_load()
+
+```

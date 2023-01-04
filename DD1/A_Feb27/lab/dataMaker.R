@@ -1,4 +1,6 @@
-
+# Function to create customer information for lab 1
+grpN <- 10
+pth <- "~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/A_Feb27/lab"
 makeFakeCuData <- function(cuN      = 10000, 
                            nSKUs    = 100, 
                            minPrice = 5, 
@@ -93,5 +95,16 @@ makeFakeCuData <- function(cuN      = 10000,
   finalDF <- finalDF[order(finalDF$timestamp),]
   return(finalDF)
 }
+
+# Individual Run as CSV
+#x <- makeFakeCuData(cuN = 2500, transactionN = 100000) #smaller
+#write.csv(x, paste0(pth,'/grpN_',grpN, '_fakeCustomerData.csv'), row.names = F)
+
+# Make files for multiple groups and save, FST is more efficient on disk
+#for(i in 1:grpN){
+#  print(i)
+#  x <- makeFakeCuData(cuN = 2500, transactionN = 100000) #smaller
+#  fst::write_fst(x, paste0(pth,'/grpN_',i, '_fakeCustomerData.fst'))
+#}
 
 # End

@@ -1,0 +1,12 @@
+Lab 1 To Do
+1. Identify the top 10 states by number of customers. Plot this in a barplot using ggplot2
+2. Create a bar chart of how many of each SKU was sold in ggplot2
+3. Create a histogram of customer spend.
+4. Create a kernel density plot of customer spend.
+5. Create 10 boxplots of the top 10 states and another 10 box plots of the bottom 10 states for customer spend
+6. Create a scatter plot between customer spend and EstHomeValue [ this is a random data set so likely no actual trend but let's confirm]
+7. Create a scatter plot between customer spend, home value, 
+7. Add a trend line to the scatter plot.
+8. Create a Cleveland Dot Plot between SKU, state and size by total transactions
+9. Plot a line chart of sales over time
+10. Stacked bar chart

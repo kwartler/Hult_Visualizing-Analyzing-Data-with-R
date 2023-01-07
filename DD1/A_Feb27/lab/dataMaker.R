@@ -26,21 +26,11 @@ makeFakeCuData <- function(cuN      = 10000,
   # Build the customers
   customers <- buildCust(numOfCust =  cuN)
   
-  # There is a prob with the function in conjurer w/replace = T
-  # Chunking is a quick way to fix
-  chk <- cuN / 50
-  ageism <- list()
-  for(i in 1:chk){
-    custAge <- as.data.frame(round(buildNum(n = 50, 
-                                            st = 18, 
-                                            en = 81, 
-                                            disp = 0.5, 
-                                            outliers = 1)),
-                             row.names = NULL)
-    ageism[[i]] <- custAge
-  }
-  ageism <- unlist(ageism)
-  names(ageism) <- rep('CuAge', length(ageism))
+  # Create a non normal age distro
+  betas  <-rbeta(cuN,2,2)
+  ageism <- c(betas[1:(cuN/2)]*18,
+              betas[(cuN/2+1):cuN]*62)
+  ageism <-ageism+18 #enforce a min age but keep the distribution
   
   # Age and phone numbers
   customer2age       <- data.frame(customer = customers, age =  ageism)

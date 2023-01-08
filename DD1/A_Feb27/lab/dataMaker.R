@@ -17,7 +17,7 @@ makeFakeCuData <- function(cuN      = 10000,
                            paretoLowSKU = 30,#SKU allocation ie 70% of transactions allocated to 30% of the products offered 
                            augment = T, # add more customer info from synthetic table
                            productHierarchy = data.frame(category = rep(c('Food','Non-Food')),
-                                                         subcategory = c('Beverages','Sanitary','Dairy','Household'))){
+                                                         subcategory = c('Beverages','Cleaning','Dairy','Household'))){
   require(conjurer)
   require(generator)
   require(lubridate)

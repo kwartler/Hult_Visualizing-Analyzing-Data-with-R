@@ -259,17 +259,17 @@ leaflet(data = ____) %>%
 <details><summary>Show Plot</summary>
 ```{r timeLine, echo=FALSE}
 # Sum the broken reads by city and date to make a more interesting subset
-worstCities <- aggregate(is_broken~ city + date, iceCream, sum)
-badCity <- worstCities[order(worstCities$is_broken, decreasing=T)[2],] 
+worstCities <- ____(____)
+badCity <- worstCities[____(worstCities$is_broken, ____)[2],] 
 
 # Subset the original data to the city being investigated
-plotDF <- iceCream[iceCream$city %in% badCity$city,] 
+plotDF <- ____[____$city %____% ____$____,] 
 
-ggplot(data = plotDF) +
+ggplot(data = ____) +
   geom_point( aes(x= last_checked, y = street, shape = is_broken, color = is_broken))+
-  theme(axis.text.x=element_text(size=1.5)) +
-  theme_minimal() +
-  ggtitle(paste('Sensor Reads by Time & Location at:',plotDF$city[1]))
+  theme(____=element_text(____)) +
+  ____() +
+  ggtitle(____)
 ```
 
 ## 6. Heatmap

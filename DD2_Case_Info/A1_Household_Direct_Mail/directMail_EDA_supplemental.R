@@ -43,7 +43,7 @@ hist(households$housePrice)
 ethnicEDU <- paste(consumerDF$NetWorth, consumerDF$HomeOwnerRenter, sep = '_')
 table(ethnicEDU)
 
-##### Enrich with one of the other data sets, you may want to do this with the other csv files
+##### Enrich with one of the other data sets, you may want to do this with the other csv files.  Remember to do a left join because the external data sets have more records that are not part of the inHouse customer book of business in this case.
 moreData <- left_join(households, consumerDF, by ='tmpID')
 head(moreData)
 

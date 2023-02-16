@@ -18,16 +18,16 @@
 
 ### [BMBANDD1?](https://mycourses.hult.edu/courses/3389827/assignments/syllabus#calendar)
 
-| Date             | Lecture   | Lab  | Time|
-|------------------|-----------|------|------------------|
-| Mon Feb 27, 2023 | TBD       |      | 1:30pm to 4:30pm |
-| Thu Mar 2, 2023  | TBD       |      | 1:30pm to 4:30pm |
-| Mon Mar 6, 2023  | TBD       |      | 3pm to 5pm       |
-| Tue Mar 7, 2023  | TBD       |      | 3pm to 5pm       |
-| Thu Mar 9, 2023  | TBD       |      | 2pm to 4pm       |
-| Mon Mar 13, 2023 | TBD       |      | 2:30pm to 5:30pm |
-| Tue Mar 14, 2023 | TBD       |      | 2pm to 4pm       |
-| Tue Mar 21, 2023 | TBD       |      | 1:30pm to 4:30pm |
+| Date             | Lecture              | Lab             | Time             |
+|------------------|----------------------|-----------------|------------------|
+| Mon Feb 27, 2023 | Intro & Admin        |                 | 1:30pm to 4:30pm |
+| Thu Mar 2, 2023  | Analytics & EDA      |                 | 1:30pm to 4:30pm |
+| Mon Mar 6, 2023  | Reporting            |Fake Customer Lab| 3pm to 5pm       |
+| Tue Mar 7, 2023  | Geo-temporal         |McBroken Lab     | 3pm to 5pm       |
+| Thu Mar 9, 2023  | Regression & Log.Reg |                 | 2pm to 4pm       |
+| Mon Mar 13, 2023 | Decision Tree        |Modeling Lab     | 2:30pm to 5:30pm |
+| Tue Mar 14, 2023 | Time Series & NLP    |                 | 2pm to 4pm       |
+| Tue Mar 21, 2023 | Data Sources & Ethics|                 | 1:30pm to 4:30pm |
 
 ### [BMBANDD2?](https://mycourses.hult.edu/courses/3389826/assignments/syllabus#calendar)
 
@@ -43,7 +43,7 @@
 
 ### R Packages to install
 ```
-install.packages(pac_man)
-pacman::p_load()
+install.packages('pacman')
+pacman::p_load(ggplot2, ggthemes, vtreat, dplyr)
 
 ```

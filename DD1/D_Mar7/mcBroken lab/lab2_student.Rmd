@@ -1,0 +1,328 @@
+---
+title: "Lab2"
+author: "Enter Name"
+date: "2023-01-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+library(leaflet)
+library(maps)
+library(ggmap)
+options(scipen=999)
+#knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+## Read in the data & get state map setup
+
+```{r dataRead, echo=FALSE, message = FALSE}
+# Get state data
+stateToGet <- 'CA'
+iceCream <- readr:: read_csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/lab/mcBroken_august_12_2022.csv')
+
+# Get the full state name from the input
+fullStateName <- state.name[match(stateToGet,state.abb)]
+
+# Get a single state for some sections
+oneStateIceCream <- subset(iceCream, iceCream$state==stateToGet)
+
+# Get map data
+us            <- fortify(map_data('state'), region = 'region')
+oneState      <- us[ us$region %in% tolower(fullStateName), ]
+# make sure oneState has rows!  Otherwise subset it manually!
+
+```
+
+
+## Examine the data 
+<details>
+<summary>Show Example of the Data</summary>
+```{r dataHead, echo=FALSE}
+knitr::kable(head(iceCream))
+```
+</details>
+
+## 1. Plot all locations on a map
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Not needed this time!
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Create a `ggplot` map
+     - Initialize with `ggplot()`
+     - Add a `geom_map` layer where the `data` is `oneState`
+          - The `map` parameter should be `oneState`
+          - The `aes`thetics have a `map_id` of `region` & `group=group`
+          - Outside of the `aes` add a `"white"` `fill` parameter & `"black"` `color`.
+          - Lastly, add `linewidth = 0.25` to declare the line size
+    - Add the curved coordinate system for maps with `coord_map('albers', lat0 = 39, lat1 = 45)`
+    - Declare a theme with `theme_map()` layer
+    - Next, add the points layer with `geom_point` referring to `oneStateIceCream`.
+         - The aesthetics have x as the `lon`, y as `lat`.  Additionally declare the `color` with the variable `is_broken` & change the `shape` with the same variable as another parameter.
+         - Outside of aesthetics, add `0.35` transparency with `alpha` to help with overplotting.
+    - Add a title using `paste0` & the previously created variable `stateToGet` with `' Ice Cream Machine Status'` to programmatically update the title.
+</details>
+
+<details><summary>Show Plot</summary>
+
+```{r locations, echo=FALSE}
+____() + 
+  ____(____ = ____, 
+       ____ = ____, aes(____ = ____, ____  = ____), 
+       ____ = '____', ____ = '____', ____ = ____) + 
+  ____(____,____, ____) +
+  ____() +
+  ____(data  = ____, 
+             aes(____, ____, ____, ____), 
+             alpha = ____) + 
+  ggtitle(paste0(____, ____))
+
+```
+</details>
+
+## 2. Zoom map with tile
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `maxCity` with `table` function applied to the `city` column of `oneStateIceCream`.  Nest this inside `as.data.frame` to change the object class.
+- Overwrite `maxCity` using `maxCity` with square brackets `[` & `]` where `which.max` is applied to the `Freq` column to the left of the comma.  Here we retain the first column only (right of the comma) 
+- Let's `subset` the `oneStateIceCream` data into a new object called `recentDay`.  Here we use two logical conditions.
+     - First, let's subset when the `date` column is equal to the `max` date
+     - Second, let's subset when the `city` column is equal to the `maxCity` variable.
+- In order to map a map using Open Street Maps we need to programmatically declare the bounding box with our data.  This information is stored in a named vector called `areaBoundingBox`.  *Instead of just copying, pasting, pause to conceptually understand the relationship of lat/lon and how you would draw a box that encompasses all the points in the data.*
+     - First, is upper left as `left` which is the `min` `lon`gitude of `recentDay`
+     - Next, the bottom (left side) is declared as the `max` of `lat`titude
+     - Moving to the `right` we switch to the `max` of `lon`
+     - Lastly, the `top` is declared as the `max` of `lat`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Initialize the `ggmap` while nesting `get_stamenmap` to access OSM.  For the Stamen map pass in the `boundareaBoundingBox` coordinates.  Then declare a `zoom` integer & the optional `maptype` as `"toner-lite"`
+- Add the theme `void` 
+- Add the `geom_point` layer passing the `data` `recentDay`.  The `aes`thetics are:
+     - x-axis is `lon`
+     - y-axis is `lat`
+     - color the points by the `is_broken` variable
+- Add a title layer `paste`ing the `maxCity` variable to `'McDonald Locations'`
+</details>
+
+<details><summary>Show Plot</summary>
+
+```{r locationsZoom, echo=FALSE}
+# Get the city with the most stores
+maxCity <- ____(____(oneStateIceCream$____))
+maxCity <- ____[which.max(maxCity$____),1]
+
+# Get the most recent day & only the max city
+recentDay <- ____(oneStateIceCream, 
+                    oneStateIceCream$____ == max(oneStateIceCream$____)
+                    & oneStateIceCream$____ == ____)
+
+# Programmatically declare the bounding box
+areaBoundingBox <- c(left   = ____, 
+                     bottom = ____, 
+                     right  = ____, 
+                     top    = ____)
+
+# Create the plot
+ggmap(get_stamenmap(____, ____, ____ = "toner-lite")) + 
+  ____() +
+  geom_point(data=____, aes(____))  + 
+  ____(____)
+```
+</details>
+
+## 3. Thermometer Plot
+
+*Could also be done as a pct stacked bar but this is another view for learning*
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `breaks` using `aggregate` declaring `is_broken` by `city` along with `oneStateIceCream` & using the function `sum`
+- Create `storeObservations` by nesting `table` inside `as.data.frame` referring to `oneStateIceCream`'s `city` (if you forgot the syntax see previous section)
+     - This is then nested *again* within `setNames` where the first column is renamed to `"city"` for the next step.
+- Create the `plotDF` by joining both `breaks` and `storeObservations` using `inner_join`.  Since the joining column was declared previously as `city` it can be left blank but is left here to demonstrate how to declare the column names explicitly (and its a best practice)  
+- Since the data is quite large, the `plotDF` is re-declared using `order` to obtain the 10 cities with the most number of broken machines.
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Create a `ggplot` with `plotDF` as the `data`.
+- Add the base thermometer with `geom_col`. The `aes` are
+     - `x` needs to have `reorder`ed the `city` column by `-Freq`. 
+     - `y` needs to have `Freq`
+     - Outside of aesthetics, `fill` the bars as `grey` & `width` as `0.5`
+- Add the red thermometers with another `geom_col`
+     - The `x` is the same as the other columns so they align.
+     - Now `y` is declared as `is_broken`
+     - Outside of the `aes` call, `fill` is `#f00b42` & `width` is `0.15`
+- Add a `theme` that rotates the `axis.text.x` `90` degrees.  Hint, see the first lab, stackoverflow or chatGPT 
+- Add a title as `"City Ice Cream Machines Uptime Vs Broken"`
+</details>
+
+<details><summary>Show Plot</summary>
+```{r thermometer, echo=FALSE}
+# Sum the broken times across cities within the period of the data
+breaks <- ____(____~____, ____, ____)
+
+# Count the observations in the period by the city
+____ <- ____(as.data.frame(table(oneStateIceCream$city)), c('____','____')) 
+
+# Join for the plot
+plotDF <- ____(____,storeObservations, by = c('____'='city'))
+
+# Take the top 10 by broken (cities with most McDonald's broken machines)
+plotDF <- plotDF[____(plotDF$is_broken, ____)[1:10],]
+
+# Create the plot
+ggplot(____) + 
+  ____()+
+  geom_col(aes(____), ____) + 
+  geom_col(aes(____),____), ____) +
+  ____(____) + 
+  ggtitle(____)
+```
+</details>
+
+## 4. Leaflet Interactive Map for all locations
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Declare the `pal`ette object using `colorFactor` across the factor `iceCream$is_broken`.  The colors should be `darkgreen` & `darkred`.
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Declare a `leaflet` object with the `iceCream` data.
+- Add the tiles with a blank layer `addTiles`
+- Add the location circles with `addCircles`
+     - Adjust the mouse-over with the `popup` parameter.  This will use limited HTML in a `paste` call.  The `<br>` is an HTML break which renders neatly in the map webpage. Examine the names of the `iceCream` data frame to identify the appropriate columns to use in the popups.
+     - After the `popup` parameter, add `color` declaring the `~pal` custom function applied to the `is_broken` colum.
+</details>
+
+<details><summary>Show Plot</summary>
+```{r leafletMap, echo=FALSE}
+# Define the marker colors
+pal <- ____(palette = c('____', '____'),
+                   domain = ____)
+
+# Create the interactive map
+leaflet(data = ____) %>%
+  addTiles() %>% 
+   addCircles(popup = paste("Location:", iceCream$____, "<br>",
+                            "City:", iceCream$____,"<br>",
+                            "Date:",iceCream$____ ,"<br>",
+                            "Broken:", iceCream$____),
+              color = ~pal(____)) 
+
+# You can also add clusters & change to markers but 
+# custom colors for clusters does not appear to be supported.  
+# Try out this type of last layer instead:
+#addMarkers( popup = paste("Location:", ____, "<br>",
+#                            "City:", ____,"<br>",
+#                            "Date:",____ ,"<br>",
+#                            "Broken:", ____),
+#              clusterOptions = markerClusterOptions())
+```
+
+## 5. Timelines
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `worstCities` using `aggregate` with `is_broken` by `city` & `date`.  Apply this formula to `iceCream` & `sum`
+- The data is `order`ed by `is_broken` within square brackets along with `decreasing=T` & the second worst city is pre-selected.  You can change this to examine other cities.  This new object is called `badCity` 
+- Create `plotDF` by creating a Boolean vector with the `%in%` operator.  Check whether the `iceCream` `city` vector contains the `city` name identified in `badCity`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Initialize the `ggplot` with `plotDF`
+- Add `geom_point` layer
+     - Use `last_checked` as the x-axis
+     - Declare `y` as the unique `street` variable.
+     - Adjust the `shape` to the `is_broken` class.
+     - Adjust the `color` to the `is_broken` class.
+- Adjust the `theme` so that the `axis.text.x` `size` is `1.5`
+- Add a `minimal` `theme`
+- Add a title using `paste` & `'Sensor Reads by Time & Location at:',plotDF$city[1]` to programmatically adjust the title.
+     
+</details>
+
+<details><summary>Show Plot</summary>
+```{r timeLine, echo=FALSE}
+# Sum the broken reads by city and date to make a more interesting subset
+worstCities <- ____(____)
+badCity <- worstCities[____(worstCities$is_broken, ____)[2],] 
+
+# Subset the original data to the city being investigated
+plotDF <- ____[____$city %____% ____$____,] 
+
+ggplot(data = ____) +
+  geom_point( aes(x= last_checked, y = street, shape = is_broken, color = is_broken))+
+  theme(____=element_text(____)) +
+  ____() +
+  ggtitle(____)
+```
+
+## 6. Heatmap
+
+<details>
+<summary>Data Prep Instructions</summary>
+- `onlyUS` can be created using the membership [`%in%`] operator.  Check if the `iceCream$state` value has membership in the built in `state.abb` object.  This will drop non-US state locations from our data set as a cleaning step.
+- To aid our learning with a more compelling heatmap let's create more date observations.  This is left intact in the code but is explained here:
+<br>
+<mark>"The `min` is applied to the `onlyUS$date` data column to identify the oldest date in the data.  This is nested in `seq` with `by` `"day"` & `length.out` to get a full `7` days from the originating date.  Finally, `sample` is applied to the `7` dates along with the `size = nrow(onlyUS)` integer.  This programmaticaly declares the number needed rather than explicit in case the data object changes later.  The last parameter `replace = T` is needed since the number of days has length `7` which is shorter than the number of rows needed.  All this is needed to create a date vector called `fakeDate`.  This is left-hand appended as a column in the `onlyUS` data as `$fakeDate`")
+</mark>
+<br>
+- Create the `plotDF` using `aggregate` to `sum` the `onlyUS` `is_broken` data by `state` & the synthetic column `fakeDate`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Initialize `ggplot` with the `plotDF` data.
+- Add the `geom_tile` layer with:
+    - `x` as `fakeDate`
+    - `y` as `state`
+    - `fill` as `is_broken`
+- Add the `bw` theme
+- To ensure all dates are shown in the x-axis add a layer `scale_x_date()`.  Within this layer,  declare the format as `date_labels="%d %b %y"`.  *This follows the format of the `strptime` from base-r.  Here %d is day, %b is the month abbreviation name and %y is 2 digit year.  Explore these by changing `b` to `m` or `y` to `Y`.  If you type `?strptime` into console you will see the official documentation.* Add another parameter here as `breaks = unique(onlyUS$fakeDate)` to declare the unique x-axis sections.
+- The y-axis has WY at the top so this needs to be revered.  One way to do this is by adding `scale_y_discrete` as a layer with `limits=rev` to reverse the order.
+- Add a `theme` layer so that the x and y axis titles are blank.  Again use stackoverflow, chatgpt or previous examples for help.
+- Add a layer `scale_fill_viridis_c()` to adjust the colors to a color-blind acceptable palette. 
+- Add a title `"Fake Ice cream Outages by Date"`
+
+</details>
+
+<details><summary>Show Plot</summary>
+```{r heatmap, echo=FALSE}
+# Subset using a prebuilt R object 
+onlyUS <- iceCream[____$state %in% ____,]
+
+# Since this is a toy data set we will add some randomness to dates to improve learning
+fakeDate <- sample(seq(min(onlyUS$date), by = "day", length.out = 7), 
+                   size    = nrow(onlyUS), 
+                   replace = T)
+onlyUS$fakeDate <- as.Date(fakeDate)
+
+# Get the plot data summing broken by state and the fake dates
+plotDF <- ____(____)
+
+# Build the heatmap
+ggplot(data = ____) + 
+  geom_tile(aes(x = fakeDate, y = state, fill= is_broken)) + 
+  ____() +
+  scale_x_date(date_labels=____,breaks = ____(onlyUS$____)) +
+  scale_y_discrete(____) +
+  theme(____, ____) +  
+  ____()+
+  ggtitle(____)
+
+```

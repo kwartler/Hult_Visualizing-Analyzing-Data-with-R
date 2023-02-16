@@ -1,8 +1,9 @@
 #' Author: Ted Kwartler
-#' Date: Sept 5 2022
+#' Data: Feb 16,2023
 #' Purpose: R popular visuals
 #' Good resource: https://r-graphics.org/
 
+# Libs
 library(stringr)
 library(dplyr)
 

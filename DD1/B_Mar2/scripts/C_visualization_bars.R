@@ -1,20 +1,19 @@
 #' Author: Ted Kwartler
-#' Date: Sept 5 2022
+#' Data: Feb 16,2023
 #' Purpose: R bar visual ggplot bars examples
 #' Good resource: https://r-graphics.org/
 
 # wd
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+
 # libs
 library(ggplot2)
 library(ggthemes)
-library(readr)
 library(lubridate)
 library(qcc)
 
 # Load
-possiblePurchase <- read_csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/C_R_practice_Viz_MoreEDA/data/MarthasVineyardCondo.csv')
-possiblePurchase <- as.data.frame(possiblePurchase)
+possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
 
 # Examine
 head(possiblePurchase)

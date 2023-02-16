@@ -1,23 +1,23 @@
 #' Author: Ted Kwartler
-#' Date: Sept 5 2022
+#' Data: Feb 16,2023
 #' Purpose: R bar visual ggplot scatter & bubble examples
 #' Good resource: https://r-graphics.org/
 
 # wd
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
-
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # libs
 library(ggplot2)
 library(ggthemes)
-library(readr)
+library(ggdark)
+library(CalledStrike) 
+#devtools::install_github("bayesball/CalledStrike")
+#devtools::install_github("BillPetti/baseballr")
 library(lubridate)
-#library(ggdark) # ok ok, I forgot this one ;)
-#library(CalledStrike)  # ok ok,my bad!
 library(dplyr)
 
 # Load
-possiblePurchase <- read_csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/C_R_practice_Viz_MoreEDA/data/MarthasVineyardCondo.csv')
+possiblePurchase <- read_csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
 possiblePurchase <- as.data.frame(possiblePurchase)
 
 # Clean it up - column names
@@ -107,7 +107,7 @@ ggplot(incomes) +
 
 # Deal w over-plotting
 # Load other data, use the EXACT path on your computer
-pth <- '~/Desktop/Harvard_DataMining_Business_Student/Lessons/C_R_practice_Viz_MoreEDA/data/player_copy.rds'
+pth <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/B_Mar2/data/player_copy.rds'
 player <- readRDS(pth)
 head(data.frame(player$plate_x, player$plate_z))
 pitchingLocations <- data.frame(plate_x = player$plate_x, plate_z = player$plate_z)

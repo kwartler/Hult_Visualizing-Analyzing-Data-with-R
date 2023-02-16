@@ -43,7 +43,24 @@
 
 ### R Packages to install
 ```
+# Individually you can use 
+# install.packages('packageName') such as below:
+install.packages('ggplot2')
+
+# or 
 install.packages('pacman')
-pacman::p_load(ggplot2, ggthemes, vtreat, dplyr)
+pacman::p_load(ggplot2, ggthemes, ggdark, rbokeh, maps, 
+               ggmap, leaflet, radiant.data, DataExplorer,
+               vtreat, dplyr, ModelMetrics, pROC,
+               MLmetrics, caret, e1071, plyr, 
+               rpart.plot, randomForest, forecast, dygraphs,
+               lubridate, jsonlite, tseries, ggseas,
+               arules,fst, recommenderlab,reshape2,
+               TTR,quantmod, htmltools,
+               PerformanceAnalytics,rpart, data.table,
+               pbapply, rbokeh, stringi, tm, qdap, readr,
+               dendextend, wordcloud, RColorBrewer,
+               tidytext, radarchart, RCurl, openNLP, xml2, stringr,
+               devtools, flexdashboard, rmarkdown, httr)
 
 ```

@@ -1,21 +1,18 @@
 #' Title: A_demo_script.R
 #' Purpose: Get some R time!
 #' Author: TK
-#' Date: Jan 23, 2022
+#' Date: Feb 16, 2023
 
 # Step 1 Set the working directory: where's the fruit? Where should I save my outputs?
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # Step 2 Load some libraries: Make R a customized piece of software
 options(scipen = 999)
 library(ggplot2)
 library(ggthemes)
-library(readr)
 
 # Step 3 Bring in some data: Go get our banana!
-#scenesDF   <- read.csv('~/Desktop/Harvard_DataMining_Business_Student/Lessons/A_IntroToR/data/forceAwakens_definedScenes.csv')
-
-scenesDF <- read_csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/A_IntroToR/data/forceAwakens_definedScenes.csv')
+scenesDF <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/data/forceAwakens_definedScenes.csv')
 
 # Step 4 Apply functions: Perform the task we want on our data: Cut & Peel our banana!
 

@@ -2,13 +2,12 @@
 #' Title: Mapping in R
 #' Purpose: Load geospatial data and visualize it
 #' Author: Ted Kwartler
-#' email: edward.kwartler@fas.harvard.edu
 #' License: GPL>=3
-#' Date: Jan 23, 2022
+#' Date: Feb 16, 2023
 #'
 
 ## Set the working directory
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # Libs
 library(maps)
@@ -16,13 +15,9 @@ library(ggthemes)
 library(ggplot2)
 library(leaflet)
 library(mapproj)
-library(readr)
 
 # Import
-#amzn <- read.csv('amznWarehouses.csv')
-gitFile <- url('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/A_IntroToR/data/amznWarehouses.csv')
-amzn <- read_csv(gitFile)
-
+amzn <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/data/amznWarehouses.csv')
 
 # This is messy webscraped data, check out the state.
 tail(amzn$STATE,25)

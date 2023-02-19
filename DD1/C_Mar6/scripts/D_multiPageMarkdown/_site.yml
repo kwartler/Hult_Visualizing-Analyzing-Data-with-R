@@ -22,5 +22,5 @@ navbar:
 
 output:
   html_document:
-    theme: slate
+    theme: simplex
 

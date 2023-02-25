@@ -1,5 +1,5 @@
 #' Author: Ted Kwartler
-#' Date: 03-01-2020
+#' Date: Feb 24, 2023
 #' Purpose: What happens when regression is applied to a binary outcome?
 #' 
 

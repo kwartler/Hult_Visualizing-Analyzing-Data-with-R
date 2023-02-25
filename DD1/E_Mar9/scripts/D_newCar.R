@@ -23,6 +23,9 @@ cars$state       <- NULL
 cars$city        <- NULL
 cars$allFeatures <- NULL
 
+# Target Leakage!  The monthly paymenbt is derived from the y variable directly!
+cars$monthlyPayment <- NULL
+
 # Partitioning 20% test set
 splitPercent <- round(nrow(cars) %*% .8)
 
@@ -37,8 +40,8 @@ summary(trainSet)
 # Get the column names of our data frame
 names(cars)
 
-informativeFeatureNames <- names(cars)[6:25]
-outcomeVariableName     <- names(cars)[26] # Or simply "listPrice"
+informativeFeatureNames <- names(cars)[5:24]
+outcomeVariableName     <- names(cars)[25] # Or simply "listPrice"
 
 # Preprocessing & Automated Engineering
 # id & constant variable removal, dummy $Fuel_Type
@@ -69,21 +72,19 @@ summary(fit)
 #################
 
 # Drop uninformative vars
-na.omit(coef(summary(fit)))
-drops                 <- c('transmissionType_catD','fuelType_catN','transmissionType_catD',
-                           'engineInfo_catD','style_catN','style_catD','priceClassDiffDirection_catD',
-                           'ownersN_isBAD','vehicleHistUseType_lev_x_Frame_Damage',
-                           'vehicleHistUseType_lev_x_Mixed_Use','vehicleHistUseType_lev_x_Personal_Use',
-                           'vehicleHistUseType_lev_x_Rental_Use','transmissionType_lev_x_Automatic',
-                           'fuelType_lev_x_Gas','fuelType_lev_x_Hybrid','driveType_lev_x_FWD',
-                           'engineInfo_lev_x_1_8L_Inline_minus_4_Gas',
-                           'engineInfo_lev_x_1_8L_Inline_minus_4_Hybrid',
-                           'engineInfo_lev_x_2_0L_Inline_minus_4_Gas','style_lev_x_Sedan',
+# Primarily these are nearly univariate (single value)
+# Hybrid is captured in the mileage stats so its duplicative 
+drops                 <- c('transmissionType_catD','fuelType_catN','fuelType_catN','engineInfo_catD',
+                           'style_catN','style_catD','priceClassDiffDirection_catD',
+                           'ownersN_isBAD','vehicleHistUseType_lev_x_Frame_Damage','vehicleHistUseType_lev_x_Mixed_Use',
+                           'vehicleHistUseType_lev_x_Personal_Use','vehicleHistUseType_lev_x_Rental_Use',
+                           'transmissionType_lev_x_Automatic','fuelType_lev_x_Gas','fuelType_lev_x_Hybrid',
+                           'driveType_lev_x_FWD','engineInfo_lev_x_1_8L_Inline_minus_4_Gas',
+                           'engineInfo_lev_x_1_8L_Inline_minus_4_Hybrid','engineInfo_lev_x_2_0L_Inline_minus_4_Gas',
                            'priceClassDiffDirection_lev_NA','priceClassDiffDirection_lev_x_above',
-                           'priceClassDiffDirection_lev_x_below','priceClassification_lev_x_Fair_Price',
-                           'priceClassification_lev_x_Great_Price','priceClassification_lev_x_High_Price',
-                           'mileageRatingCity_lev_x_29_cty_','mileageRatingCity_lev_x_30_cty_',
-                           'mileageRatingCity_lev_x_31_cty_','mileageRatingCity_lev_x_53_cty_')
+                           'priceClassDiffDirection_lev_x_below','mileageRatingCity_lev_x_29_cty_',
+                           'mileageRatingCity_lev_x_30_cty_','mileageRatingCity_lev_x_31_cty_',
+                           'mileageRatingCity_lev_x_53_cty_')
 treatedTrainParsimony <- treatedTrain[, !(names(treatedTrain) %in% drops)]
 
 fit2 <- lm(listPrice ~ ., treatedTrainParsimony)

@@ -19,6 +19,9 @@ cars$state       <- NULL
 cars$city        <- NULL
 cars$allFeatures <- NULL
 
+# Target Leakage!  The monthly paymenbt is derived from the y variable directly!
+cars$monthlyPayment <- NULL
+
 # Partitioning 20% test set
 splitPercent <- round(nrow(cars) %*% .8)
 

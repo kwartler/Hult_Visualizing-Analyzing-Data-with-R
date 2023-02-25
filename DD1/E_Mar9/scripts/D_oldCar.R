@@ -1,6 +1,6 @@
 #' Author: Ted Kwartler
 #' Date: 2-19-2023
-#' Purpose: OldCar Toyota Corolla Regression
+#' Purpose: Toyota Corolla Regression
 #' 
 
 # Libs
@@ -13,10 +13,11 @@ library(readr)
 options(scipen=999)
 
 # SetWD
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
-# Dat
-cars <- read.csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/E_Regressions/data/oldCar.csv')
+# Data
+#cars <- read.csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/E_Regressions/data/oldCar.csv') #old version
+cars <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/allCarsDF.csv') # new version
 
 # Partitioning 20% test set
 splitPercent <- round(nrow(cars) %*% .8)

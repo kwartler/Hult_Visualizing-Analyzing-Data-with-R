@@ -40,7 +40,7 @@ fit <- lm(listPrice ~ ., treatedTrain)
 
 # Step
 backFit <- step(fit,direction = 'backward', trace = 5)
+saveRDS(backFit,'~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/E_Mar9/data/backFit.rds')
 summary(backFit)
-
 
 # End

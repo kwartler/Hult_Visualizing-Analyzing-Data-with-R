@@ -1,5 +1,5 @@
 #' Ted Kwartler
-#' Date: Oct 4, 2021
+#' Date: Feb 26, 2023
 #' Goal: Build a default model using logistic regression
 
 # WD
@@ -50,7 +50,7 @@ treatedValidation <- prepare(plan, validation)
 # ROSE - Random Over Sample Examples
 #trainingRose <- ROSE(default.payment.next.month~., treatedTrain)
 #table(trainingRose$data$default.payment.next.month)
-# You could use trainingRose and treatedTrain to build two models then compare choosing the more accurate model (assumes balanced classification costs)
+# You could use trainingRose$data and treatedTrain to build two models then compare choosing the more accurate model (assumes balanced classification costs)
 
 # Model
 fit <- glm(default.payment.next.month ~., treatedTrain, family = 'binomial')
@@ -75,6 +75,6 @@ head(trainResults)
 (confMat <- ConfusionMatrix(trainResults$classes, trainResults$actual))
 Accuracy(trainResults$classes, trainResults$actual)
 
-
+#when you look at the confusion matrix of fit from data=trainingRose$data the accuracy goes down but you capture more 1 true/1 predicted.  So its finding signal easier for the success class.
 
 # End

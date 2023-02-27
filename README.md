@@ -61,6 +61,6 @@ pacman::p_load(officer, flextable, qcc, ggplot2, ggdark, ggthemes, ggdark, rboke
                pbapply, rbokeh, stringi, tm, qdap, readr,
                dendextend, wordcloud, RColorBrewer,
                tidytext, radarchart, RCurl, openNLP, xml2, stringr,
-               devtools, flexdashboard, rmarkdown, httr, tidyverse)
+               devtools, flexdashboard, rmarkdown, httr, tidyverse,ROSE)
 
 ```

@@ -41,10 +41,10 @@ setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 bbStats <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/MRegularSeasonDetailedResults.csv')
 
 # Historical tourney data.  You can't use these box stat scores because you don't know these stats when you need to make a prediction!  The stats happen during and after the game that you're predicting.  But we need to obtain whether the team won or lost from this data.
-tourneyDetailedResults <- read.csv("~/Downloads/MNCAATourneyDetailedResults.csv")
+tourneyDetailedResults <- read.csv("https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/MNCAATourneyDetailedResults.csv")
 
 # Now let's get the seed stats, this is something you would know ahead of the tourney so its valid.
-tourneySeeds <- read.csv("~/Downloads/MNCAATourneySeeds.csv")
+tourneySeeds <- read.csv("https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/MNCAATourneySeeds.csv")
 
 # Cross Walk with teamID to names
 xWalk <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/MTeams.csv')
@@ -123,7 +123,9 @@ forever2021 <- subset(forever2021, forever2021$DayNum==137 | forever2021$DayNum=
 # Let's put them back together
 allTourneyTeams <- rbind(not2021, forever2021)
 
-#Let's assume the region, and play in games don't matter for seeds and just get them to be 1-16.  Keep in mind these are ordinal classs, not true numerics.  
+# Let's assume the region, and play in games don't matter for seeds and just get them to be 1-16.  
+# One could engineer a region column from $Seed substring(allTourneyTeams$Seed, 1, 1), but that's up to you 
+# Keep in mind these are ordinal classes, not true numbers  
 allTourneyTeams$Seed <- factor(as.numeric(gsub('[[:alpha:]]','',allTourneyTeams$Seed)), order = T, levels = 16:1)
 
 # Examine and ordered factor class
@@ -139,14 +141,15 @@ modelingDF <- modelingDF[names(modelingDF) %in% keeps]
 # Append the end of season stats to the tourney data
 modelingDF <- left_join(modelingDF, seasonalAvg, by = c('Season'='Season','TeamID'='TeamID'))
 
-# Random Sample
+# Randomize the entire data set to ensure no auto-correlation 
+set.seed(2023)
 modelingDF <- modelingDF[sample(1:nrow(modelingDF),nrow(modelingDF)),]
 
 # MODIFY
 # Identify the informative and target
 names(modelingDF)
 targetVar       <- names(modelingDF)[4]
-informativeVars <- names(modelingDF)[c(5, 7:20)]
+informativeVars <- names(modelingDF)[c(5, 7:20)] # model without seed: names(modelingDF)[c(7:20)]
 
 # Segment the prep data
 set.seed(1234)
@@ -218,7 +221,8 @@ plot(ROCobj)
 AUC(results$actual*1,results$classes)
 
 # Increase the cutoff to improve balanced accuracy
-newCutoff <- .60
+# You can do this programmatically following this blog: https://rpubs.com/raysunau/optimal_cutoff_point
+newCutoff <- .55
 newClasses <- ifelse(teamPreds >= newCutoff, 1,0)
 (confMat <- ConfusionMatrix(newClasses, results$actual))
 Accuracy(newClasses, results$actual)

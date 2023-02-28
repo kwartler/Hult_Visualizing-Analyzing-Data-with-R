@@ -64,3 +64,13 @@ pacman::p_load(officer, flextable, qcc, ggplot2, ggdark, ggthemes, ggdark, rboke
                devtools, flexdashboard, rmarkdown, httr, tidyverse,ROSE)
 
 ```
+
+### For Mac users trying to install git, you need to install BREW first from here
+
+[Brew](https://brew.sh/)
+Terminal code: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+
+Once downloaded you will need to copy paste two lines that are printed in console and execute them.  then you have to type 
+`brew install git` in terminal.
+
+

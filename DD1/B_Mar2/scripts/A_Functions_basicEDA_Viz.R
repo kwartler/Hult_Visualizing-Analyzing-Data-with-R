@@ -15,10 +15,6 @@ screenTime <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualiz
 scenes     <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/force_awakens_scenes.csv')
 characters <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/force_awakens_character_info.csv')
 
-# For new R programmers, let's change from a "tibble" to a simple data frame, this isn't really needed but simplifies things for class
-screenTime <- as.data.frame(screenTime)
-scenes     <- as.data.frame(scenes)
-characters <- as.data.frame(characters)
 
 ## Exploratory Data Analysis, and indexing
 head(screenTime)

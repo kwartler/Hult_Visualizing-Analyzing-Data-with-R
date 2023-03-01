@@ -95,7 +95,7 @@ ggplot(screenTime,
   geom_segment(aes(x    = start, 
                    xend = end, 
                    y    = character, 
-                   yend = character), size=3) + #add layer of segments & declare x/y 
+                   yend = character), linewidth=3) + #add layer of segments & declare x/y 
   theme_gdocs() + #add a default "theme"
   theme(legend.position="none") # turn off the need for a legend
 ggsave("character_scenes.pdf")

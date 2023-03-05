@@ -4,7 +4,7 @@ title: amzn
 
 ### Amazon Stock
 
-```{r, echo = F}
+```{r, echo = F,message = F}
 options(scipen = 999)
 library(TTR)
 library(quantmod)

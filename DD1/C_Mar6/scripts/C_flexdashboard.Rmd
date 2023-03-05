@@ -48,7 +48,7 @@ Row
 ### Age Distribution
 
 ```{r histogram, message=FALSE}
-ggplot(data = df, aes(age)) + geom_density() + theme_gdocs()
+ggplot(data = df, aes(age)) + geom_density(color = 'red') + theme_gdocs()
 ```
 
 Row {data-height=350}
@@ -87,11 +87,11 @@ knitr::kable(as.matrix(table(df$race)))
 ### better formatted table info
 
 ```{r table2, message=FALSE}
-wgt <- as.matrix(summary(df$weight))
-wgt <- data.frame(amt = rownames(wgt),
-                  freq = wgt[,1])
-rownames(wgt) <- NULL
-knitr::kable(wgt)
+labs <- as.matrix(summary(df$num_lab_procedures))
+labs <- data.frame(amt = rownames(labs),
+                  freq = labs[,1],
+                  row.names = NULL)
+knitr::kable(labs)
 ```
 
 Row 

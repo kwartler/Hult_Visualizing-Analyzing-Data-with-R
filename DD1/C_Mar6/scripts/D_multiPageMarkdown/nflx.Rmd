@@ -4,7 +4,7 @@ title: nflx
 
 ### Netflix Stock
 
-```{r, echo = F}
+```{r, echo = F, message = F}
 options(scipen = 999)
 library(TTR)
 library(quantmod)
@@ -16,7 +16,7 @@ names(stk) <- sapply(strsplit(names(stk),'[.]'), tail, 1)
 stk$date <- row.names(stk)
 ```
 
-```{r,echo = F}
+```{r,echo = F, message = F}
 
 # Make a candlestick chart; assign ID eChart1
 eChart1 <- stk %>% 

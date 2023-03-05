@@ -98,8 +98,12 @@ pptx <- ph_with(pptx,
                 value = 'Distribution of num_medications', 
                 location = ph_location_label(ph_label = "Text Placeholder 4"))
 # Right side content
-pl<- ggplot(data = df, aes(x = num_medications)) + geom_density() + theme_wsj()
-pptx <- ph_with(pptx, value = pl, location = ph_location_label(ph_label = "Content Placeholder 5"))
+pl<- ggplot(data = df, aes(x = num_medications)) + 
+  geom_density(color = 'maroon') + 
+  theme_wsj()
+pptx <- ph_with(pptx, 
+                value = pl, 
+                location = ph_location_label(ph_label = "Content Placeholder 5"))
 
 # Add a programmatic caption in a new slide
 pptx <- add_slide(pptx, 

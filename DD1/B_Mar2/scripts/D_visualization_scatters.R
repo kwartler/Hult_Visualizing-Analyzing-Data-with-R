@@ -17,7 +17,7 @@ library(lubridate)
 library(dplyr)
 
 # Load
-possiblePurchase <- read_csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
+possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
 possiblePurchase <- as.data.frame(possiblePurchase)
 
 # Clean it up - column names
@@ -79,7 +79,7 @@ ggplot(data = df, aes(x=yr, y=factor(month), size = NetOperatingIncome, color = 
   theme(legend.position = "none") +
   labs(x="year", y = "month", title= "Operating Income MV Condo")
 
-# Another view with 4 different continuous, the difference is subtle, here larger circles show more occupied nights, color is income.  If you could have a single very expensie night it could show up as a small dot but still be bright
+# Another view with 4 different continuous, the difference is subtle, here larger circles show more occupied nights, color is income.  If you could have a single very expensive night it could show up as a small dot but still be bright
 df <- subset(possiblePurchase, possiblePurchase$yr !='2020')
 ggplot(data = df, aes(x=yr, y=factor(month), size = NightOccupied, color = NetOperatingIncome)) + 
   geom_point() +  scale_colour_viridis_c(option = "magma")  + 
@@ -114,8 +114,10 @@ pitchingLocations <- data.frame(plate_x = player$plate_x, plate_z = player$plate
 basePlot <- ggplot(data = pitchingLocations, aes(x = plate_x, y = plate_z)) + ggtitle("Miguel Castro's Pitch Locations")
 basePlot + geom_point() + ggdark::dark_theme_classic()
 
-# Jitter, move dots slightly
+# Jitter, move dots slightly and add them in red to see how they move.  In reality you would not do it this way because it doubles points.
 basePlot + geom_point(color = 'red') + ggdark::dark_theme_classic() + geom_jitter(width = 0.7, height = 0.20)
+
+# This is the real way which just applies the gitter to a single set of points.
 basePlot + geom_jitter(width = 0.7, height = 0.70)  + ggdark::dark_theme_classic()
 
 # Alpha, make semi-transparent

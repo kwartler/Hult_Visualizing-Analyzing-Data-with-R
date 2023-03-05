@@ -43,16 +43,26 @@ pptx <- add_slide(pptx,
                   layout = "Comparison", 
                   master = theme)
 # Add the title
-pptx <- ph_with(pptx, value = "Ted Slide Title", location = ph_location_label( ph_label = "Title 1"))
+pptx <- ph_with(pptx, 
+                value = "Ted Slide Title", 
+                location = ph_location_label( ph_label = "Title 1"))
 
 
 # Right side title & body
-pptx <- ph_with(pptx, value = "Right hand sub-header", location = ph_location_label( ph_label = "Text Placeholder 4"))
-pptx <- ph_with(pptx, value = "Right hand content", location = ph_location_label( ph_label = "Content Placeholder 5"))
+pptx <- ph_with(pptx, 
+                value = "Right hand sub-header", 
+                location = ph_location_label( ph_label = "Text Placeholder 4"))
+pptx <- ph_with(pptx, 
+                value = "Right hand content", 
+                location = ph_location_label( ph_label = "Content Placeholder 5"))
 
 # Left side title & body
-pptx <- ph_with(pptx, value = "Left hand sub-header", location = ph_location_label( ph_label = "Text Placeholder 2"))
-pptx <- ph_with(pptx, value = "Left hand content", location = ph_location_label( ph_label = "Content Placeholder 3"))
+pptx <- ph_with(pptx, 
+                value = "Left hand sub-header", 
+                location = ph_location_label( ph_label = "Text Placeholder 2"))
+pptx <- ph_with(pptx, 
+                value = "Left hand content", 
+                location = ph_location_label( ph_label = "Content Placeholder 3"))
 
 # Add another slide; 1st check the layout labels
 layout_summary(pptx)
@@ -64,8 +74,12 @@ pptx <- add_slide(pptx,
                   master = theme)
 
 # Add the title & content
-pptx <- ph_with(pptx, value = "title slide 2", location = ph_location_label( ph_label = "Title 1"))
-pptx <- ph_with(pptx, head(iris), location = ph_location_label( ph_label = "Content Placeholder 2"))
+pptx <- ph_with(pptx, 
+                value = "title slide 2", 
+                location = ph_location_label( ph_label = "Title 1"))
+pptx <- ph_with(pptx, 
+                value = head(iris), 
+                location = ph_location_label( ph_label = "Content Placeholder 2"))
 
 # Add another slide; check the layout & labels
 layout_summary(pptx)
@@ -76,13 +90,21 @@ pptx <- add_slide(pptx,
                   layout = "Two Content", 
                   master = theme)
 
-p <- ggplot(data = mtcars, aes(x=mpg)) + geom_density() + theme_gdocs()
+p <- ggplot(data = mtcars, aes(x=mpg)) + 
+  geom_density() + 
+  theme_gdocs()
 summaryInfo <- as.data.frame(as.matrix(summary(mtcars$mpg)))
-pptx <- ph_with(pptx, value = "mtcars mpg stats", location = ph_location_label( ph_label = "Title 1"))
-pptx <- ph_with(pptx, p, location = ph_location_label( ph_label = "Content Placeholder 2"))
-pptx <- ph_with(pptx, summaryInfo, location = ph_location_label( ph_label = "Content Placeholder 3"))
+pptx <- ph_with(pptx, 
+                value = "mtcars mpg stats", 
+                location = ph_location_label( ph_label = "Title 1"))
+pptx <- ph_with(pptx, 
+                value = p, 
+                location = ph_location_label( ph_label = "Content Placeholder 2"))
+pptx <- ph_with(pptx, 
+                value = summaryInfo, 
+                location = ph_location_label( ph_label = "Content Placeholder 3"))
 
-# Save a copy
+# Save a copy by "printing" it.
 fileName <- paste0(Sys.Date(),'_simpleExample.pptx')
 print(pptx, target = fileName)
 

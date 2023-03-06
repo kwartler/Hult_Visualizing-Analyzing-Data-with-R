@@ -18,7 +18,7 @@ options(scipen=999)
 
 ```{r dataRead, echo=FALSE, message = FALSE}
 # Not Run
-#cuDF <- readr::read_csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/lab/grpN_10_fakeCustomerData.csv')
+#cuDF <- readr::read_csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/C_Mar6/customer%20data%20lab/grpN_10_fakeCustomerData.csv')
 ```
 
 ## Or Alternatively, load the function and create your own data set with parameters

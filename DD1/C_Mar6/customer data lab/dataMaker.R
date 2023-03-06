@@ -66,7 +66,7 @@ makeFakeCuData <- function(cuN      = 10000,
   
   # Create Augmented Table
   if(augment==T){
-    aug <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/lab/augmentDataTable.csv')
+    aug <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/C_Mar6/customer%20data%20lab/augmentDataTable.csv')
     if(cuN>nrow(aug)){stop(paste('there are only 15k rows in the augmented table but you have cuN:', cuN))}
     idx <- sample(1:nrow(aug), cuN)
     aug <- data.frame(customer = customers, aug[idx,])

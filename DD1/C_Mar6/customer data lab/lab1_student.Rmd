@@ -24,7 +24,7 @@ options(scipen=999)
 ## Or Alternatively, load the function and create your own data set with parameters
 
 ```{r dataConstruction, echo=FALSE, message=FALSE}
-sourceURL <- "https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/lab/dataMaker.R"
+sourceURL <- "https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/C_Mar6/customer%20data%20lab/dataMaker.R"
 devtools::source_url(sourceURL)
 prods <- data.frame(category    = rep(c('Food','Non-Food')),
                     subcategory = c('Beverages','Sanitary','Dairy','Household'))

@@ -91,7 +91,7 @@ pptx <- add_slide(pptx,
                   master = theme)
 
 p <- ggplot(data = mtcars, aes(x=mpg)) + 
-  geom_density() + 
+  geom_density(color='red') + 
   theme_gdocs()
 summaryInfo <- as.data.frame(as.matrix(summary(mtcars$mpg)))
 pptx <- ph_with(pptx, 

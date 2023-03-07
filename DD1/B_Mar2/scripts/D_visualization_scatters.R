@@ -68,7 +68,7 @@ ggplot(data = possiblePurchase, aes(x=NightOccupied, y=EffectiveGrossIncome, col
   theme_stata() + labs(x="Occupied Nights", y = "Gross Income", title= "MV Motel Condo")
 
 # Add another dimension size; number of nights occupied has a relationship to income and so does price to night.  no shocker there bc of "high season" has high occupancy and high rates, but a good example still
-ggplot(data = possiblePurchase, aes(x=NightOccupied, y=EffectiveGrossIncome, size = Avg.Price.Per.Night)) + 
+ggplot(data = possiblePurchase, aes(x=NightOccupied, y=EffectiveGrossIncome, color = yr, size = Avg.Price.Per.Night)) + 
   geom_point() + theme_wsj()
 
 # a Cleveland Dot plot, xy both class levels, color and size can be other dimensions but this shows only 3
@@ -135,6 +135,4 @@ ggplot(data = player) + theme_hc() +
         axis.title.y = element_blank()) +
   ggtitle(paste('Miguel Castro Pitch Location')) +
   coord_equal() +
-  facet_wrap(pitch_name ~ .)
-
-# End
+  facet_wrap(pitch_name ~ .)# End

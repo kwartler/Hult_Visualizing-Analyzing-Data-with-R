@@ -22,7 +22,7 @@ options(scipen=999)
 ```{r dataRead, echo=FALSE, message = FALSE}
 # Get state data
 stateToGet <- 'CA'
-iceCream <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/lab/mcBroken_august_12_2022.csv')
+iceCream <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/D_Mar7/mcBroken%20lab/mcBroken_august_12_2022.csv')
 
 # Get the full state name from the input
 fullStateName <- state.name[match(stateToGet,state.abb)]

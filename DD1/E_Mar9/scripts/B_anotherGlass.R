@@ -6,9 +6,6 @@
 # Libs
 library(vtreat)
 
-# Setwd
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
-
 # Data
 wine <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/Wine.csv')
 
@@ -64,7 +61,7 @@ nrow(wine)
 # Another example with variable treatment
 rm(list=ls()[-grep('wine', ls())])
 
-# Train 50%/Validation 40% /Varible Treatment 10%
+# Train 50%/Validation 40% /Variable Treatment 10%
 trainPercentRows      <- round(nrow(wine) %*% .5)
 validationPercentRows <- round(nrow(wine) %*% .4)
 

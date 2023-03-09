@@ -255,4 +255,26 @@ oneTeamExample <- prepare(plan, oneTeamExample)
 
 predict(bestFit,  oneTeamExample, type='response')
 
+multipleTeams <- data.frame(Season = c(2023,2023),
+                            Seed = factor(c(1,8), order = T, levels = 16:1),
+                            TeamName = c('Alabama','TexasAM'),
+                            FGM =c(32.6,23.9), 
+                            FGA=c(61.7,54.8), 
+                            FGM3 =c(7.8,6.2),
+                            FGA3=c(20,19), 
+                            FTM=c(14.5,19.4), 
+                            FTA=c(20.8,25.4), 
+                            OR=c(10.2,12.1), 
+                            DR=c(26.2,24.7), 
+                            Ast=c(16.6,12.8), 
+                            TO=c(10.6,12.3), 
+                            Stl=c(7.6,6.9), 
+                            Blk = c(3.3,2.4), 
+                            PF = c(16.8,18.4), 
+                            RegularSeasonWin= c(.875,.741))
+multipleTeams <- prepare(plan, multipleTeams)
+
+predict(bestFit,  multipleTeams, type='response')
+
 # End
+

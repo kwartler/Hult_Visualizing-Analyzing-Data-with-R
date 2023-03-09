@@ -102,6 +102,8 @@ results <- data.frame(actual  = nonPrepData[-idx,]$TournamentWin,
                       probs   = teamPreds)
 head(results)
 
+#### GO TO PPTX for explanation
+
 # Get a confusion matrix
 (confMat <- ConfusionMatrix(results$classes, results$actual))
 

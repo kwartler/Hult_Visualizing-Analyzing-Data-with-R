@@ -3,7 +3,8 @@
 #' Purpose: Fundraising PreProcessing
 
 # Setwd
-setwd("~/Desktop/Harvard_DataMining_Business_Student/Lessons/C_ModelingProcess_DataPrep/data")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+options(scipen=999)
 
 # Libs
 library(vtreat)

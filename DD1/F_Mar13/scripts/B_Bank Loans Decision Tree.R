@@ -1,20 +1,19 @@
 #' Author: Ted Kwartler
-#' Data: Mar 7, 2022
+#' Data: Mar 12, 2023
 #' Purpose: Load data build a decision tree
 #' https://archive.ics.uci.edu/ml/datasets/bank+marketing
 
 
 ## Set the working directory
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 options(scipen=999)
 
 ## Load the libraries
 library(caret)
 library(rpart.plot) #visualizing
-library(readr)
 
 ## Bring in some data
-dat <- read_csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/F_LogReg_Tree_RF/data/bank2.csv') 
+dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/F_Mar13/data/bank-full_v2.csv') 
 
 # Partitioning
 splitPercent <- round(nrow(dat) %*% .9)
@@ -43,7 +42,7 @@ overFit
 # Don't bother plotting, takes a while but a copy is saved in the data folder.
 #prp(overFit, extra = 1)
 
-# Look at training probabilities
+# Look at training classes
 trainProbs <- predict(overFit, trainDat) 
 head(trainProbs, 10)
 
@@ -73,15 +72,14 @@ confMat
 # Accuracy
 sum(diag(confMat))/sum(confMat)
 
+# Compare that to the natural occurrence; mean response
+proportions(table(dat$y))
+
 # Start over
-rm(list=ls())
-
-##########
-dat <- read_csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/F_LogReg_Tree_RF/data/bank-full_v2.csv') # now a bit more data to approximate real scenario 
-
+rm(list=ls()[-grep('dat', ls())])
 
 # To save time in class, we are only training on 50% of the data
-splitPercent <- round(nrow(dat) %*% .5)
+splitPercent <- round(nrow(dat) %*% .80)
 totalRecords <- 1:nrow(dat)
 set.seed(1234)
 idx <- sample(totalRecords, splitPercent)
@@ -100,22 +98,13 @@ head(trainDat)
 set.seed(1234)
 fit <- train(as.factor(y) ~., #formula based
              data = trainDat, #data in
-             #instead of knn, caret does "recursive partitioning (trees)
+             #"recursive partitioning (trees)
              method = "rpart", 
              #Define a range for the CP to test
-             tuneGrid = data.frame(cp = c(0.0001, 0.001,0.01, 0.05, 0.07)), 
+             tuneGrid = data.frame(cp = c(0.0001, 0.001,0.005, 0.01, 0.05, 0.07, 0.1)), 
              #ie don't split if there are less than 1 record left and only do a split if there are at least 2+ records
              control = rpart.control(minsplit = 1, minbucket = 2)) 
 
-# Or without the comments:
-#fit <- train(y ~., data = trainDat, 
-#             method = "rpart", 
-#             tuneGrid = data.frame(cp = c(0.01, 0.05)), 
-#             control = rpart.control(minsplit = 1, minbucket = 2)) 
-
-# Since it takes a long time to fit there is a pre-saved version
-# saveRDS(fit,'fullDataTreeFit.rds')
-# fit <- readRDS('fullDataTreeFit.rds')
 # Examine
 fit
 

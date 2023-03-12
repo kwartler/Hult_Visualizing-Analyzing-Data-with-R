@@ -1,11 +1,11 @@
 #' Author: Ted Kwartler
-#' Data: Mar 21, 2022
-#' Purpose: Load data build a random forest tree; this version uses more equally balanced target classes
+#' Data: Oct 26
+#' Purpose: Load data build a random forest tree with caret, and randomforest; this version uses more equally balanced target classes
 #' https://archive.ics.uci.edu/ml/datasets/bank+marketing
 
 
 ## Set the working directory
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # Options
 options(scipen=999)
@@ -13,44 +13,40 @@ options(scipen=999)
 ## Load the libraries
 library(MLmetrics)
 library(caret)
-library(rpart.plot) 
 library(randomForest)
 library(vtreat)
-library(readr)
 
 ## Bring in some data
-dat <- read_csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/F_LogReg_Tree_RF/data/bank-downSampled.csv')
+dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/F_Mar13/data/bank-downSampled.csv')
 
 # EDA
 names(dat)
 head(dat)
 summary(dat)
 
-# Prep and non prep
-set.seed(2022)
-idxPrep        <- sample(1:nrow(dat),.1*nrow(dat))
-prepData    <- dat[idxPrep,]
-nonPrepData <- dat[-idxPrep,]
+# To save time in class, we are only training on 20% of the data
+splitPercent <- round(nrow(dat) %*% .8)
+totalRecords <- 1:nrow(dat)
+set.seed(1234)
+idx <- sample(totalRecords, splitPercent)
+
+trainDat <- dat[idx,]
+testDat  <- dat[-idx,]
+
+# Examine the oversampled data for more equal class balances 
+table(trainDat$Class)
 
 # Treatment
-targetVar       <- names(prepData)[17]
-informativeVars <- names(prepData)[1:16]
-
+targetVar       <- names(trainDat)[17]
+informativeVars <- names(trainDat)[1:16]
 
 # Design a "C"ategorical variable plan 
-plan <- designTreatmentsC(prepData, 
+plan <- designTreatmentsC(trainDat, 
                           informativeVars,
                           targetVar,'yes')
 
-# Partition to avoid overfitting
-set.seed(1234)
-idx        <- sample(1:nrow(nonPrepData),.8*nrow(nonPrepData))
-train      <- nonPrepData[idx,]
-validation <- nonPrepData[-idx,]
-
-# Now apply the variable treatment plan
-treatedTrain <- prepare(plan, train)
-treatedTest  <- prepare(plan, validation)
+treatedTrain <- prepare(plan, trainDat)
+treatedTest  <- prepare(plan, testDat)
 
 # Fit a random forest model with Caret
 downSampleFit <- train(Class ~ .,
@@ -58,23 +54,25 @@ downSampleFit <- train(Class ~ .,
                       method = "rf",
                       verbose = FALSE,
                       ntree = 3,
-                      tuneGrid = data.frame(mtry = 1)) #num of vars used in each tree
+                      tuneGrid = data.frame(mtry = 1))
 downSampleFit
 
+# Too see probabilities
 predProbs   <- predict(downSampleFit,  
                        treatedTrain, 
                        type = c("prob"))
+
+# To get classes with 0.50 cutoff
 predClasses <- predict(downSampleFit,  treatedTrain)
 
-# Confusion Matrix
-caret::confusionMatrix(predClasses, 
-                       as.factor(treatedTrain$Class))
+# Confusion Matrix; MLmetrics has the same function but use CARET in this example.
+caret::confusionMatrix(predClasses, as.factor(treatedTrain$Class))
 
 # Other interesting model artifacts
 varImp(downSampleFit)
 plot(varImp(downSampleFit), top = 20)
 
-# Add more trees to the forest with the randomForest package (caret takes a long time bc its more thorough, with x-validation)
+# Add more trees to the forest with the randomForest package (caret takes a long time bc its more thorough)
 moreVoters <- randomForest(as.factor(Class) ~ .,
                            data  = treatedTrain, 
                            ntree = 500,
@@ -105,7 +103,7 @@ legend("top", colnames(moreVoters$err.rate),col=1:4,cex=0.8,fill=1:4)
 someVoters <- randomForest(as.factor(Class) ~ .,
                            data = treatedTrain, 
                            ntree=100,
-                           mtry = 1)
+                           mtyr = 1)
 
 # Confusion Matrix
 trainClass <- predict(someVoters, treatedTrain)
@@ -116,9 +114,10 @@ threeVotes        <- predict(downSampleFit, treatedTest)
 fiveHundredVoters <- predict(moreVoters,    treatedTest)
 oneHundredVoters  <- predict(someVoters,    treatedTest)
 
-# Accuracy Comparison from MLmetrics
-Accuracy(treatedTest$Class, threeVotes)
-Accuracy(treatedTest$Class, fiveHundredVoters)
-Accuracy(treatedTest$Class, oneHundredVoters)
+# Accuracy Comparison from MLmetrics and natural occurence in the test set
+Accuracy(testDat$Class, threeVotes)
+Accuracy(testDat$Class, fiveHundredVoters)
+Accuracy(testDat$Class, oneHundredVoters)
+proportions(table(testDat$Class))
 
 # End

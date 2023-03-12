@@ -1,5 +1,5 @@
 #' Author: Ted Kwartler
-#' Date: 9-18-2019
+#' Date: Mar 12, 2023
 #' Purpose: Fundraising PreProcessing
 
 # Setwd
@@ -9,10 +9,11 @@ options(scipen=999)
 # Libs
 library(vtreat)
 library(dplyr)
+library(ggplot2)
 options(scipen = 999)
 
 # Read in the data
-donors<- read.csv('fakeDonorBureau_v2.csv')
+donors<- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/F_Mar13/data/fakeDonorBureau_v2.csv')
 
 # Examine; Here you would perform EDA
 summary(donors)
@@ -39,10 +40,7 @@ treatedData <- prepare(plan, donors)
 summary(treatedData)
 
 # Start over 
-rm(list=ls())
-
-# Data
-donors <- read.csv('fakeDonorBureau_v2.csv')
+rm(list=ls()[-grep('donors', ls())])
 
 # for **numeric** outcomes 
 # how much will the prospective donor give?
@@ -58,13 +56,10 @@ treatedData <- prepare(plan, donors)
 summary(treatedData)
 
 # Start over 
-rm(list=ls())
+rm(list=ls()[-grep('donors', ls())])
 
-# Data
-donors <- read.csv('fakeDonorBureau_v2.csv')
-
-# Fictitious Data Enrichment
-thirdPartyData <- read.csv( 'fakeDataEnrichment.csv')
+# Fictitious Data Enrichment; its a BEST PRACTICE to load all tables in one section but this script is for reference
+thirdPartyData <- read.csv( 'https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/F_Mar13/data/fakeDataEnrichment.csv')
 
 # Examine
 head(thirdPartyData)
@@ -73,16 +68,13 @@ head(thirdPartyData)
 # Bring new data to the 3120 donors
 leftData <- left_join(donors, thirdPartyData) 
 
-# Bring donors to the new data points
-rightData <- right_join(donors, thirdPartyData) 
-rightData[c(3119:3122),] #NA automatically filled in
-
-# Find records in common
-innerData <- inner_join(donors, thirdPartyData) #here identical to leftData
-
 ## A taste of whats to come...for those in the know, yes we are skipping a lot of steps.
+newInformativeFeatures <- names(leftData)[c(4:20,22,23)]
+newInformativeFeatures
+target       <- 'Y1_Donation'
+successClass <- 'Yes'
 plan <- designTreatmentsC(leftData,
-                          names(leftData)[4:20],
+                          newInformativeFeatures,
                           'Y1_Donation',
                           'Yes')
 treatedLeftData <- prepare(plan, leftData)
@@ -91,9 +83,24 @@ fit             <- glm(as.factor(Y1_Donation) ~ ., treatedLeftData, family='bino
 # Our first model!
 summary(fit)
 
+# Let's make it parsimonious
+parismonyFit <- step(fit, direction = 'backward')
+
 # Make some real predictions
-donationProbability <- predict(fit, treatedLeftData, type='response')
+donationProbability <- predict(parismonyFit, treatedLeftData, type='response')
 
 head(donationProbability)
+
+# Organize some test results
+predDF <- data.frame(actual = treatedLeftData$Y1_Donation,
+                     probs  = donationProbability)
+ggplot(predDF, aes(x=probs, group= actual, color = actual))+geom_density()
+
+
+# Assess - calculate accuracy, plot the ROC and make a confusion matrix etc.  Lots of ways to assess a model!
+cutoff <- 0.5
+predClass <- ifelse(donationProbability>=cutoff,'Yes','No')
+table(treatedLeftData$Y1_Donation, predClass)
+
 
 # End

@@ -108,7 +108,7 @@ ggplot(plotDF, aes(x=idx, y=ValueCount, group=document, color=document)) +
   geom_line()
 
 # Get nrc lexicon,notice that some words can have multiple sentiments
-nrc
+nrc <- lexicon_nrc()
 
 # Perform Inner Join
 nrcSent <- inner_join(allText,

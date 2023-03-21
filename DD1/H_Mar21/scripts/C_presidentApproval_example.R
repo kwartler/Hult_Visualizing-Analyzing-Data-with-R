@@ -1,9 +1,7 @@
 #' Title: 538 Website API
 #' Purpose: Review  numeric API
 #' Author: Ted Kwartler
-#' email: edwardkwartler@fas.harvard.edu
-#' License: GPL>=3
-#' Date: Nov 27, 2022
+#' Date: Mar 20, 2023
 #'
 
 # Libraries
@@ -49,7 +47,7 @@ ratings <- as.xts(ratings, date_decimal(index(ratings)))
 
 dygraph(ratings, "Biden Approval") %>%
   dySeries("approve", label = "approve", color = 'green') %>%
-  dySeries("disapprove", label = "disapprove", color = 'red') %>%
+  dySeries("disapprove", label = "disapprove", color = 'magenta') %>%
   dyRangeSelector()
 
 # End

@@ -1,9 +1,7 @@
 #' Title: Grab Youtube JSON
 #' Purpose: Demonstrate f12 in Chrome for API
 #' Author: Ted Kwartler
-#' email: edwardkwartler@fas.harvard.edu
-#' License: GPL>=3
-#' Date: Nov 27, 2022
+#' Date: Mar 20, 2023
 #'
 
 # Libraries
@@ -19,7 +17,7 @@ setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # Youtube URL
 # https://www.youtube.com/watch?v=K5Rly83zfuI&ab_channel=TheDailyShowwithTrevorNoah
-youtubeCaption <- "https://www.youtube.com/api/timedtext?v=K5Rly83zfuI&caps=asr&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1669689178&sparams=ip%2Cipbits%2Cexpire%2Cv%2Ccaps%2Cxoaf&signature=6389500C8EE1DA2CC36A72E6896511C1BEFB0B26.DE6A626AC2C1AC7A8F18574D7CAEF6B78FAB38D5&key=yt8&lang=en-US&fmt=json3&xorb=2&xobt=3&xovt=3&cbrand=apple&cbr=Chrome&cbrver=105.0.0.0&c=WEB&cver=2.20221122.06.00&cplayer=UNIPLAYER&cos=Macintosh&cosver=10_15_7&cplatform=DESKTOP"
+youtubeCaption <- "https://www.youtube.com/api/timedtext?v=K5Rly83zfuI&caps=asr&xoaf=4&hl=en&ip=0.0.0.0&ipbits=0&expire=1679437356&sparams=ip%2Cipbits%2Cexpire%2Cv%2Ccaps%2Cxoaf&signature=106D6A6594E34C957AA912EB2CBC8FA0F8BBF7EE.21A367F2865989574D093407F63754A44FCC6BE8&key=yt8&lang=en-US&fmt=json3&xorb=2&xobt=3&xovt=3&cbrand=apple&cbr=Chrome&cbrver=110.0.0.0&c=WEB&cver=2.20230320.00.00&cplayer=UNIPLAYER&cos=Macintosh&cosver=10_15_7&cplatform=DESKTOP"
 
 # Go get the data
 dat <- fromJSON(youtubeCaption) # you can even pass in a URL to go to a webpage
@@ -47,6 +45,7 @@ rawTxt <- str_squish(rawTxt)
 
 # If you want it as a single chunk
 oneChunk <- paste(rawTxt, collapse = ' ')
+oneChunk
 
 # If you want to retain the meta data
 textDF <- data.frame(startTime = dat$events$tStartMs/1000,

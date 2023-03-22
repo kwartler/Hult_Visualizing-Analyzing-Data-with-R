@@ -11,7 +11,7 @@ library(DataExplorer)
 setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # Data look up on github
-cereal <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/Cereals.csv')
+cereal <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/B_Mar22/data/Cereals.csv')
 
 # What's the overall structure  & dimensions of the data?
 str(   )
@@ -48,7 +48,7 @@ mean(     )
 median(     )
 
 # Number missing values?
-colSums(is.na(     ))
+colSums(is.na(cereal     ))
 
 # Sampling 5 row example (nonsense w/data this size but good to know how):
 set.seed(123)

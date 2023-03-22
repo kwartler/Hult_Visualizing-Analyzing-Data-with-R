@@ -9,7 +9,7 @@ setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 # libs
 library(ggplot2)
 library(ggthemes)
-library(ggdark)
+library(ggdark) #invert_geom_defaults() 
 library(CalledStrike) 
 #devtools::install_github("bayesball/CalledStrike")
 #devtools::install_github("BillPetti/baseballr")
@@ -17,11 +17,7 @@ library(lubridate)
 library(dplyr)
 
 # Load
-possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
-possiblePurchase <- as.data.frame(possiblePurchase)
-
-# Clean it up - column names
-names(possiblePurchase) <- make.names(names(possiblePurchase))
+possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/B_Mar22/data/MarthasVineyardCondo.csv')
 
 # Clean $ signs
 possiblePurchase$Avg.Price.Per.Night <- as.numeric(gsub('[$]', '', possiblePurchase$Avg.Price.Per.Night))
@@ -79,14 +75,6 @@ ggplot(data = df, aes(x=yr, y=factor(month), size = NetOperatingIncome, color = 
   theme(legend.position = "none") +
   labs(x="year", y = "month", title= "Operating Income MV Condo")
 
-# Another view with 4 different continuous, the difference is subtle, here larger circles show more occupied nights, color is income.  If you could have a single very expensive night it could show up as a small dot but still be bright
-df <- subset(possiblePurchase, possiblePurchase$yr !='2020')
-ggplot(data = df, aes(x=yr, y=factor(month), size = NightOccupied, color = NetOperatingIncome)) + 
-  geom_point() +  scale_colour_viridis_c(option = "magma")  + 
-  ggdark::dark_theme_gray() + 
-  theme(legend.position = "none") +
-  labs(x="year", y = "month", title= "Operating Income MV Condo")
-
 # dumb bell plot to compare extremes by group, data wrangling you can use group_by but this is to be clear for new R programmers
 minIncomes <- aggregate(NetOperatingIncome~month, data = df, FUN= min)
 minIncomes
@@ -107,7 +95,7 @@ ggplot(incomes) +
 
 # Deal w over-plotting
 # Load other data, use the EXACT path on your computer
-pth <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/B_Mar2/data/player_copy.rds'
+pth <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/BAN1/B_Mar22/data/player_copy.rds'
 player <- readRDS(pth)
 head(data.frame(player$plate_x, player$plate_z))
 pitchingLocations <- data.frame(plate_x = player$plate_x, plate_z = player$plate_z)
@@ -135,4 +123,5 @@ ggplot(data = player) + theme_hc() +
         axis.title.y = element_blank()) +
   ggtitle(paste('Miguel Castro Pitch Location')) +
   coord_equal() +
-  facet_wrap(pitch_name ~ .)# End
+  facet_wrap(pitch_name ~ .)
+# End

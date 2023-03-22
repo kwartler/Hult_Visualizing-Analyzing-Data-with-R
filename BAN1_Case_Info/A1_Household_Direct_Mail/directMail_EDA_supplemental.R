@@ -9,10 +9,10 @@ library(ggplot2)
 
 
 # Get the inhouse data as `households`
-households <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD2_Case_Info/A1_Household_Direct_Mail/inHouse_EDA_10k.csv')
+households <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1_Case_Info/A1_Household_Direct_Mail/inHouse_EDA_10k.csv')
 
 # Load one of the supplemental data sources
-consumerDF<- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD2_Case_Info/A1_Household_Direct_Mail/consumerData_training15K_studentVersion.csv')
+consumerDF<- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1_Case_Info/A1_Household_Direct_Mail/consumerData_training15K_studentVersion.csv')
 
 ##### I would do some basic EDA and plotting of individual vars then move to more complex interactions
 as.data.frame(table(round(households$Age)))

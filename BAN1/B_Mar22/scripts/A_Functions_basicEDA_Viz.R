@@ -11,9 +11,9 @@ library(ggthemes)
 library(rbokeh)
 
 ## Bring in some data
-screenTime <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/on_screen_time.csv')
-scenes     <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/force_awakens_scenes.csv')
-characters <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/force_awakens_character_info.csv')
+screenTime <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/B_Mar22/data/on_screen_time.csv')
+scenes     <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/B_Mar22/data/force_awakens_scenes.csv')
+characters <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/B_Mar22/data/force_awakens_character_info.csv')
 
 
 ## Exploratory Data Analysis, and indexing
@@ -76,12 +76,16 @@ head(characterTally)
 characterTally <- characterTally[order(characterTally, decreasing=T),] # order the data frame
 head(characterTally)
 
-# Base plots
+# Base R barplot
 barplot(characterTally[1:5], 
         main='Force Awakens: Character Scene Tally', 
         las = 2)
 
+# Base plot() default is a scatter; here kind of nonsense
 plot(characterTally, main='Force Awakens: Character Scene Tally')
+
+# Base plot() type parameter "l" is a line chart; here kind of nonsense
+plot(characterTally, type = 'l', main='Force Awakens: Character Scene Tally')
 
 # Save a basic plot to disk in the personal folder since it was set as the "working directory"
 png("characterTally_plot.png")

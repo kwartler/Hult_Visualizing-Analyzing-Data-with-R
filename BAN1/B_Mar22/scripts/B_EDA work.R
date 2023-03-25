@@ -6,6 +6,8 @@
 # libs
 library(radiant.data)
 library(DataExplorer)
+library(naniar)
+library(ggplot2)
 
 # Set WD
 setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
@@ -68,7 +70,13 @@ plot_histogram(cereal$protein)
 plot_density(cereal$calories) 
 plot_histogram(cereal)#time consuming 
 plot_density(cereal)#time consuming 
-plot_scatterplot(cereal, by='rating') #time consuming 
+plot_scatterplot(cereal, by='rating') #time consuming
+
+# naniar - lots of ways to perform imputation too!
+gg_miss_var(cereal) + 
+  geom_hline(yintercept = 0.1*nrow(cereal), linetype = "dashed", color = "red", linewidth = 1)
+gg_miss_case(cereal, facet=mfr, order_cases = TRUE, show_pct = FALSE)
+
 
 # radiant.data
 # example video: https://radiant-rstats.github.io/radiant.data/

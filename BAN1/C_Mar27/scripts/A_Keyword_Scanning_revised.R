@@ -14,7 +14,7 @@ library(stringi)
 Sys.setlocale('LC_ALL','C') #some tweets are in different languages so you may get an error
 
 # Get Data
-text <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/G_Mar14/data/coffeeVector.csv')
+text <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/C_Mar27/data/coffeeVector.csv')
 head(text$x)
 
 

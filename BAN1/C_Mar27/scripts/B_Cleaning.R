@@ -39,7 +39,7 @@ cleanCorpus<-function(corpus, customStopwords){
 customStopwords <- c(stopwords('english'), 'lol', 'smh')
 
 # Data
-text <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/G_Mar14/data/coffeeVector.csv')
+text <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/C_Mar27/data/coffeeVector.csv')
 head(text$x)
 
 # Make a volatile corpus

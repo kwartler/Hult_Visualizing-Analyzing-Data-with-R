@@ -15,7 +15,7 @@ library(lubridate)
 library(ggseas) #seasonal adjustments with ggplot too!
 
 # Data
-amzn <- read.csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/G_TimeSeries_Equities/data/AMZN_Qtr_Rev.csv')
+amzn <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/D_Mar28/data/AMZN_Qtr_Rev.csv')
 
 # Time formatting
 amzn$date <- as.POSIXct(amzn$unixTime, origin = '1970-1-1')

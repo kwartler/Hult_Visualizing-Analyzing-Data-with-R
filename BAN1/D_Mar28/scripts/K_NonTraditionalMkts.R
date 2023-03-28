@@ -9,22 +9,21 @@ library(devtools)
 library(dplyr)
 
 # WD
-setwd("~/Desktop/Harvard_DataMining_Business_Student/personalFiles")
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # "Open" a pack with the correct card rarities function
 #source("~/Desktop/Harvard_DataMining_Business_Student/Lessons/I_nonTraditionalMkt_LPsolve_RealEstate/scripts/Z_crackPack.R")
-crackPack <- "https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/I_nonTraditionalMkt_LPsolve_RealEstate/scripts/Z_crackPack.R"
+crackPack <- "https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/D_Mar28/scripts/Z_crackPack.R"
 source_url(crackPack)
 
 
 # Get card values accounting for distribution by rarity type
 #source("~/Desktop/Harvard_DataMining_Business_Student/Lessons/I_nonTraditionalMkt_LPsolve_RealEstate/scripts/Z_cardValues.R")
-cardValues <- "https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/I_nonTraditionalMkt_LPsolve_RealEstate/scripts/Z_cardValues.R"
+cardValues <- "https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/D_Mar28/scripts/Z_cardValues.R"
 source_url(cardValues)
 
 # Card list obtained online
-cards <- read.csv("https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/I_nonTraditionalMkt_LPsolve_RealEstate/data/Guilds_10_16_18.csv")
-#cards <- read.csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/I_nonTraditionalMkt_LPsolve_RealEstate/data/IconicMasters_7_25_18.csv')
+cards <- read.csv("https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/D_Mar28/data/Guilds_10_16_18.csv")
 
 # Examine
 head(cards)

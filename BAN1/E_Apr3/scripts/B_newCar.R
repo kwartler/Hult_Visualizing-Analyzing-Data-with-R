@@ -12,7 +12,7 @@ library(ModelMetrics)
 options(scipen=999)
 
 # Data
-cars <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/newCars.csv') 
+cars <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/E_Apr3/data/newCars.csv') 
 
 # drop geo and text for this example
 drops <- c('state','city','allFeatures')

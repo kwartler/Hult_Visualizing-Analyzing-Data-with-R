@@ -13,7 +13,7 @@ library(caret)
 library(rpart.plot) #visualizing
 
 ## Bring in some data
-dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/F_Mar13/data/bank-full_v2.csv') 
+dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/E_Apr3/data/bank-full_v2.csv') 
 
 # Partitioning
 splitPercent <- round(nrow(dat) %*% .9)

@@ -9,7 +9,7 @@ library(ggthemes)
 library(dplyr)
 
 # Data
-diamonds <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/diamonds2023.csv')
+diamonds <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/E_Apr3/data/diamonds2023.csv')
 # an older version of this data set can be loaded with ggplot, names are different but results are similar
 #data(diamonds)
 

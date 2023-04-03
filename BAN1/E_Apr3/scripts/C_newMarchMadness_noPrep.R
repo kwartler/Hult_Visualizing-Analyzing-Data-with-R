@@ -33,7 +33,7 @@ library(ggplot2)
 library(dplyr)
 
 # Data IO
-modelingDF <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/E_Mar9/data/NCAAmodelingDF.csv')
+modelingDF <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/E_Apr3/data/NCAAmodelingDF.csv')
 
 # Seeds aren't really numbers so let's change that
 modelingDF$Seed <- factor(modelingDF$Seed, order = T, levels = 16:1)

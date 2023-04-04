@@ -13,7 +13,7 @@ library(caret)
 library(rpart.plot) #visualizing
 
 ## Bring in some data
-dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/E_Apr3/data/bank-full_v2.csv') 
+dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/F_Apr4/data/bank-full_v2.csv') 
 
 # Partitioning
 splitPercent <- round(nrow(dat) %*% .9)
@@ -101,7 +101,7 @@ fit <- train(as.factor(y) ~., #formula based
              #"recursive partitioning (trees)
              method = "rpart", 
              #Define a range for the CP to test
-             tuneGrid = data.frame(cp = c(0.0001, 0.001,0.005, 0.01, 0.05, 0.07, 0.1)), 
+             tuneGrid = data.frame(cp = c(0.0001, 0.001,0.005, 0.01, 0.05, 0.07, 0.1, .25)), 
              #ie don't split if there are less than 1 record left and only do a split if there are at least 2+ records
              control = rpart.control(minsplit = 1, minbucket = 2)) 
 
@@ -112,7 +112,9 @@ fit
 plot(fit)
 
 # Plot a pruned tree
+pdf('bestTree.pdf')
 prp(fit$finalModel, extra = 1)
+dev.off()
 
 # Make some predictions on the training set
 trainCaret <- predict(fit, trainDat)
@@ -124,5 +126,9 @@ confusionMatrix(trainCaret, as.factor(trainDat$y))
 # Now more consistent accuracy & fewer rules!
 testCaret <- predict(fit,testDat)
 confusionMatrix(testCaret,as.factor(testDat$y))
+
+# As an example here is how you get probabilities from predict()
+testCaretProbs <- predict(fit,testDat,type = 'prob')
+head(testCaretProbs)
 
 # End

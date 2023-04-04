@@ -17,7 +17,7 @@ library(ggthemes)
 library(caret)
 
 ## Bring in some data
-dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/E_Apr3/data/bank-downSampled.csv')
+dat <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/F_Apr4/data/bank-downSampled.csv')
 
 # EDA
 names(dat)
@@ -75,6 +75,10 @@ ggplot(varImpDF, aes(x=importance, y = reorder(variables, importance))) +
 
 # Confusion Matrix
 trainClass <- predict(moreVoters, treatedTrain)
+# In ranger objects, the predictions are within a list and need to be declared
+head(trainClass$predictions)
+
+# Using the prediction probability list element, classify with 0.50 cutoff 
 classOutcome <- ifelse(trainClass$predictions[,2]>=0.5,'yes','no')
 confusionMatrix(as.factor(classOutcome), 
                 as.factor(treatedTrain$Class))
@@ -115,12 +119,12 @@ fit$finalModel$prediction.error
 # I think its interesting to examine it as they grow but this takes a long time
 numTreesVec <- vector()
 oobError  <- vector()
-nTreeSearch <- seq(from = 100, to = 500, by=5)
+nTreeSearch <- seq(from = 100, to = 500, by=20)
 for(i in 1:length(nTreeSearch)){
   print(i)
   fit <- train(as.factor(Class) ~ ., data = treatedTrain,
                method = 'ranger',
-               num.trees = nTreeSearch[i],
+               num.trees = nTreeSearch[i], 
                tuneGrid = grid,
                trControl = fitControl)
   numTreesVec[i] <- fit$finalModel$num.trees

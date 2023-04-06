@@ -20,7 +20,7 @@ library(DT)
 # Change the theme using bootswatch: https://bootswatch.com/default/
 
 # Identify the file in the directory
-searchPattern <- 'Wk1'
+searchPattern <- 'Wk2'
 pth <- "~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/BAN1/F_Apr4/data"
 pth <- list.files(path = pth, pattern = searchPattern, full.names = T)
 pth <- pth[grep('*.csv', pth)]

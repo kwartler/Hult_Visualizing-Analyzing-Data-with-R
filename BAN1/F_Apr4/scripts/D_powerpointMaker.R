@@ -24,7 +24,7 @@ setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
 
 # Inputs
 author        <- 'Dale the Data Scientist'
-searchPattern <- 'Wk1' #one could programatically obtain the week of the year using lubridate
+searchPattern <- 'Wk3' #one could programatically obtain the week of the year using lubridate
 dataPaths     <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/BAN1/F_Apr4/data'
 templatePath  <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/BAN1/F_Apr4/data/hult.pptx'
 

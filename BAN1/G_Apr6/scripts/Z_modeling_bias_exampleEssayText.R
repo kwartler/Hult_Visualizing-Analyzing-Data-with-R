@@ -20,14 +20,15 @@ library(fairness)
 # Custom cleaning function
 resumeClean<-function(xVec, stops=stopwords("SMART")){
   xVec <- removePunctuation(xVec)
-  xVec <- stripWhitespace(xVec)
   xVec <- tolower(xVec)
   xVec <- removeWords(xVec, stops)
+  xVec <- removeNumbers(xVec)
+  xVec <- stripWhitespace(xVec)
   return(xVec)
 }
 
 # Data
-candidates <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/H_Mar21/data/HR%20Hiring%20(Bias%20%26%20Fairness).csv')
+candidates <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/G_Apr6/data/HR%20Hiring%20(Bias%20%26%20Fairness).csv')
 
 ### SAMPLE : Partitioning
 set.seed(1234)
@@ -72,14 +73,14 @@ drops <- c('ApplicationID', 'AgeBracket', 'Gender', 'Summary')
 allCandidateData <- allCandidateData[, !(names(allCandidateData) %in% drops)]
 
 # Now let's prepare for modeling by making dummy variables
-#plan <- designTreatmentsC(allCandidateData, #data
-#                          names(allCandidateData), #x-var columns
-#                          'Hired', # y-var name
-#                          'Yes') #success factor level
+plan <- designTreatmentsC(allCandidateData, #data
+                          names(allCandidateData), #x-var columns
+                          'Hired', # y-var name
+                          'Yes') #success factor level
 #saveRDS(plan, 'variable_treatment_plan.rds')
 
 #update for your path if you don't build it above!
-pth <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/H_Mar21/data/variable_treatment_plan.rds'
+pth <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/BAN1/G_Apr6/data/variable_treatment_plan.rds'
 plan <- readRDS(pth)
 allCandidateData <- prepare(plan, allCandidateData)
 

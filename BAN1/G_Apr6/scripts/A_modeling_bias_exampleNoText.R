@@ -14,6 +14,7 @@ library(glmnet)
 library(MLmetrics)
 library(vtreat)
 library(fairness)
+library(ranger)
 
 # Data
 candidates <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/BAN1/G_Apr6/data/HR%20Hiring%20(Bias%20%26%20Fairness).csv')
@@ -44,8 +45,9 @@ treatedTrain <- treatedTrain[,-grep('_catP|_catB',names(treatedTrain))]
 treatedTest  <- prepare(plan, testCandidates)
 
 fit <- ranger(as.factor(Hired)~., 
-       treatedTrain, importance = 'permutation',
-       probability = T)
+              treatedTrain, 
+              importance = 'permutation',
+              probability = T)
 
 # Look at improved var importance
 varImpDF <- data.frame(variables = names(importance(fit)),
@@ -113,7 +115,8 @@ genderDF   <- cbind(trainCandidates,gender = candidates$Gender[idx])
 genderPlan <- designTreatmentsC(genderDF, names(genderDF)[2:10],'gender', 'Male')
 genderDF   <-  prepare(genderPlan,genderDF)
 genderDF   <- genderDF[,-grep('_catP|_catB',names(genderDF))]
-levels(as.factor(genderDF$gender))
+
+# Probabliity of being Male
 genderFit  <- glm(as.factor(gender)~.+0, 
                   genderDF,
                   family='binomial')

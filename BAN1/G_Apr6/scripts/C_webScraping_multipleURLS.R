@@ -33,6 +33,7 @@ instructorNames
 # Follow links to get more bio's
 allBios <- list()
 for (i in 1:length(instructorNames)){
+  Sys.sleep(1)
   # Progress Msg
   cat(instructorNames[i])
   pg <- read_html(getLinks[i])
